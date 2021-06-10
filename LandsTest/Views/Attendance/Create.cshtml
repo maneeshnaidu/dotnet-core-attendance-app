@@ -1,0 +1,40 @@
+@model Attendance
+@inject LandsTest.Repository.IEmployeeRepository employeeRepository
+
+
+<div class="container">
+    <h3 class="display-4">Add Attendance</h3>
+
+    @if (ViewBag.IsSuccess == true)
+    {
+       <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Congratulations!</strong> You have added a new Attendance successfully. <br />
+            <a asp-controller="Employee" asp-action="Index">Click here to view details</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Attendance">
+        <div class="form-group">
+            <label asp-for="EmployeeId"></label>
+            <select asp-for="EmployeeId" class="form-control" asp-items="(await employeeRepository.GetEmployeesAsync()).Select(l => new SelectListItem() { Text = l.FirstName, Value = l.Id.ToString()})">
+                <option value="">Please choose employee</option>
+            </select>
+            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AttendType"></label>
+            <select asp-for="AttendType" class="form-control">
+                <option value="">Please choose attend type</option>
+                <option value="Sign-In">Sign-In</option>
+                <option value="Sign-Out">Sign-Out</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Add Attendance" class="btn btn-primary" />
+        </div>
+    </form>
+
+</div>

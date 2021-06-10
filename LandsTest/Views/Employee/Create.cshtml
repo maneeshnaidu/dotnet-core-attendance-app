@@ -1,0 +1,40 @@
+@model Employee
+
+<div class="container">
+    <h3 class="display-4">Add new employee</h3>
+
+    @if (ViewBag.IsSuccess == true)
+    {
+       <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Congratulations!</strong> You have added a new employee successfully. <br />
+            <a asp-controller="Employee" asp-action="Index">Click here to view details</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Employee">
+        <div class="form-group">
+            <div class="text-danger" asp-validation-summary="All"></div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Add Employee" class="btn btn-primary" />
+        </div>
+
+
+    </form>
+
+</div>
